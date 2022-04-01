@@ -43,6 +43,7 @@ class QEzResourceBrowser(quicwindow.QUicWindow):
         # Create standard item model
         #
         self.resourceItemModel = QtGui.QStandardItemModel(0, 1, parent=self.resourceTableView)
+        self.resourceItemModel.setObjectName('resourceItemModel')
 
         self.resourceItemFilterModel = QtCore.QSortFilterProxyModel(parent=self.resourceTableView)
         self.resourceItemFilterModel.setSourceModel(self.resourceItemModel)
@@ -51,13 +52,15 @@ class QEzResourceBrowser(quicwindow.QUicWindow):
 
         # Create custom context menu
         #
-        self.copyAction = QtWidgets.QAction('&Copy Resource')
-        self.copyAction.triggered.connect(self.on_copyAction_triggered)
-
-        self.exportAction = QtWidgets.QAction('&Export Resource')
-        self.exportAction.triggered.connect(self.on_exportAction_triggered)
-
         self.customContextMenu = QtWidgets.QMenu('', parent=self.resourceTableView)
+        self.customContextMenu.setObjectName('customContextMenu')
+
+        self.copyAction = QtWidgets.QAction('&Copy Resource', parent=self.customContextMenu)
+        self.copyAction.setObjectName('copyAction')
+
+        self.exportAction = QtWidgets.QAction('&Export Resource', parent=self.customContextMenu)
+        self.exportAction.setObjectName('exportAction')
+
         self.customContextMenu.addActions([self.copyAction, self.exportAction])
 
         # Invalidate item model
