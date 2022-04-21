@@ -1,7 +1,7 @@
 import os
 import pyperclip
 
-from PySide2 import QtCore, QtWidgets, QtGui
+from Qt import QtCore, QtWidgets, QtGui
 from dcc.ui import quicwindow
 
 import logging
@@ -26,6 +26,14 @@ class QEzResourceBrowser(quicwindow.QUicWindow):
         :key flags: QtCore.Qt.WindowFlags
         :rtype: None
         """
+
+        # Declare public variables
+        #
+        self.resourceItemModel = None  # type: QtGui.QStandardItemModel
+        self.resourceItemFilterModel = None  # type: QtCore.QSortFilterProxyModel
+        self.customContextMenu = None  # type: QtWidgets.QMenu
+        self.copyAction = None  # type: QtWidgets.QAction
+        self.exportAction = None  # type: QtWidgets.QAction
 
         # Call parent method
         #
@@ -55,10 +63,10 @@ class QEzResourceBrowser(quicwindow.QUicWindow):
         self.customContextMenu = QtWidgets.QMenu('', parent=self.resourceTableView)
         self.customContextMenu.setObjectName('customContextMenu')
 
-        self.copyAction = QtWidgets.QAction('&Copy Resource', parent=self.customContextMenu)
+        self.copyAction = QtWidgets.QAction('&Copy Resource', self.customContextMenu)
         self.copyAction.setObjectName('copyAction')
 
-        self.exportAction = QtWidgets.QAction('&Export Resource', parent=self.customContextMenu)
+        self.exportAction = QtWidgets.QAction('&Export Resource', self.customContextMenu)
         self.exportAction.setObjectName('exportAction')
 
         self.customContextMenu.addActions([self.copyAction, self.exportAction])
@@ -160,8 +168,8 @@ class QEzResourceBrowser(quicwindow.QUicWindow):
         # Get current resource
         #
         currentItem = self.currentItem()
-
         resourcePath = currentItem.text()
+
         filename = os.path.basename(resourcePath)
         name, extension = os.path.splitext(filename)
 
@@ -175,5 +183,10 @@ class QEzResourceBrowser(quicwindow.QUicWindow):
 
         if accepted:
 
-            QtGui.QPixmap(resourcePath, parent=self).save(savePath, quality=100)
+            log.info('Saving resource to: %s' % savePath)
+            QtGui.QPixmap(resourcePath).save(savePath, format=extension[1:], quality=100)
+
+        else:
+
+            log.info('Operation aborted...')
     # endregion
