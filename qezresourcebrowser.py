@@ -41,12 +41,16 @@ class QEzResourceBrowser(quicwindow.QUicWindow):
     # endregion
 
     # region Methods
-    def postLoad(self):
+    def postLoad(self, *args, **kwargs):
         """
         Called after the user interface has been loaded.
 
         :rtype: None
         """
+
+        # Call parent method
+        #
+        super(QEzResourceBrowser, self).postLoad(*args, **kwargs)
 
         # Create standard item model
         #
@@ -65,9 +69,11 @@ class QEzResourceBrowser(quicwindow.QUicWindow):
 
         self.copyAction = QtWidgets.QAction('&Copy Resource', self.customContextMenu)
         self.copyAction.setObjectName('copyAction')
+        self.copyAction.triggered.connect(self.on_copyAction_triggered)
 
         self.exportAction = QtWidgets.QAction('&Export Resource', self.customContextMenu)
         self.exportAction.setObjectName('exportAction')
+        self.exportAction.triggered.connect(self.on_exportAction_triggered)
 
         self.customContextMenu.addActions([self.copyAction, self.exportAction])
 
