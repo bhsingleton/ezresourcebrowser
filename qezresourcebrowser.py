@@ -27,17 +27,20 @@ class QEzResourceBrowser(quicwindow.QUicWindow):
         :rtype: None
         """
 
-        # Declare public variables
-        #
-        self.resourceItemModel = None  # type: QtGui.QStandardItemModel
-        self.resourceItemFilterModel = None  # type: QtCore.QSortFilterProxyModel
-        self.customContextMenu = None  # type: QtWidgets.QMenu
-        self.copyAction = None  # type: QtWidgets.QAction
-        self.exportAction = None  # type: QtWidgets.QAction
-
         # Call parent method
         #
         super(QEzResourceBrowser, self).__init__(*args, **kwargs)
+
+        # Declare public variables
+        #
+        self.searchLineEdit = None
+        self.resourceTableView = None
+        self.resourceItemModel = None  # type: QtGui.QStandardItemModel
+        self.resourceItemFilterModel = None  # type: QtCore.QSortFilterProxyModel
+
+        self.customContextMenu = None  # type: QtWidgets.QMenu
+        self.copyAction = None  # type: QtWidgets.QAction
+        self.exportAction = None  # type: QtWidgets.QAction
     # endregion
 
     # region Methods

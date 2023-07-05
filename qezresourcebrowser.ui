@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>ezResourceBrowserWindow</class>
- <widget class="QMainWindow" name="ezResourceBrowserWindow">
+ <class>QEzResourceBrowser</class>
+ <widget class="QMainWindow" name="QEzResourceBrowser">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>|| Ez Resource Browser</string>
   </property>
-  <widget class="QWidget" name="centralwidget">
+  <widget class="QWidget" name="mainWidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
      <widget class="QLineEdit" name="searchLineEdit">
