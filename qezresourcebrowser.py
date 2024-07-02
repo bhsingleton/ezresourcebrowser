@@ -1,5 +1,5 @@
 import os
-import pyperclip
+import clipman
 
 from Qt import QtCore, QtWidgets, QtGui
 from dcc.ui import quicwindow
@@ -163,7 +163,7 @@ class QEzResourceBrowser(quicwindow.QUicWindow):
         :rtype: None
         """
 
-        pyperclip.copy(self.currentItem().text())
+        clipman.set(self.currentItem().text())
 
     @QtCore.Slot(bool)
     def on_exportAction_triggered(self, checked=False):
